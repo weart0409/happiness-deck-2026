@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>데이터로 풀어보는 행복의 비밀 - 비전공자를 위한 데이터 분석 입문</title>
+
+  <!-- Reveal.js CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  
+  <!-- Chart.js CDN for Motion Graphics & Interactive Charts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Custom Multi-Theme Stylesheet -->
+  <link rel="stylesheet" href="css/custom.css">
+</head>
+<body class="theme-ppt">
+
+  <!-- ==========================================================================
+       상단 플로팅 테마 스위처 (PPT / 스타벅스 DESIGN.md / 디스코드)
+       ========================================================================== -->
+  <div class="top-theme-bar">
+    <span class="theme-bar-label">🎨 디자인 컨셉:</span>
+    <button class="theme-btn active" data-theme="ppt">📊 피피티 양식</button>
+    <button class="theme-btn" data-theme="starbucks">☕ 스타벅스 (DESIGN.md)</button>
+    <button class="theme-btn" data-theme="discord">💬 디스코드</button>
+  </div>
+
+  <div class="reveal theme-ppt">
+    <div class="slides">
+
+      <!-- ======================================================================
+           SLIDE 01: 강의 표지 (Course Cover)
+           ====================================================================== -->
+      <section>
+        <span class="chapter-badge">Data Analytics for Well-Being • Week 01</span>
+        <h1 style="font-size: 2.6rem; margin-top: 0.8rem; margin-bottom: 1.2rem; line-height: 1.25;">
+          데이터로 풀어보는 <br>
+          <span class="highlight-text">주관적 안녕감과 행복의 비밀</span>
+        </h1>
+        <p class="subtitle" style="max-width: 860px;">
+          "직장인뿐만 아니라 전 생애주기(아동-청년-노인) 실측 데이터로 검증하는 행복의 진짜 조건"
+        </p>
+
+        <div class="grid-3" style="margin-top: 2rem;">
+          <div class="card" style="padding: 1.1rem;">
+            <div style="font-size: 1.5rem; margin-bottom: 0.3rem;">🧠</div>
+            <div class="card-title" style="font-size: 1rem;">핵심 개념</div>
+            <div class="card-content" style="font-size: 0.85rem;">주관적 안녕감(SWB) & 역량이론</div>
+          </div>
+          <div class="card" style="padding: 1.1rem;">
+            <div style="font-size: 1.5rem; margin-bottom: 0.3rem;">📊</div>
+            <div class="card-title" style="font-size: 1rem;">분석 데이터</div>
+            <div class="card-content" style="font-size: 0.85rem;">WHR 147개국 & 한국 228개 시군구</div>
+          </div>
+          <div class="card" style="padding: 1.1rem;">
+            <div style="font-size: 1.5rem; margin-bottom: 0.3rem;">🔍</div>
+            <div class="card-title" style="font-size: 1rem;">데이터 분석 기법</div>
+            <div class="card-content" style="font-size: 0.85rem;">정규화, 단순회귀, K-Means 군집분석</div>
+          </div>
+        </div>
+
+        <div style="margin-top: 2.2rem; font-size: 0.82rem; opacity: 0.7;">
+          <span>💡 팁: 오른쪽 상단 버튼으로 [피피티 양식], [스타벅스 테마], [디스코드 테마]를 실시간 전환해보세요!</span>
+        </div>
+      </section>
+
+      <!-- ======================================================================
+           SLIDE 02: 개념 - 주관적 안녕감 (Subjective Well-Being, SWB)
+           ====================================================================== -->
+      <section>
+        <span class="chapter-badge">CONCEPT • 행복의 학술적 정의</span>
+        <h2>행복은 '기분'일까, '평가'일까? : 주관적 안녕감(SWB)</h2>
+        <p class="subtitle">
+          심리학과 사회과학에서 행복을 측정할 때 사용하는 핵심 프레임워크 (Ed Diener, 1984)
+        </p>
+
+        <div class="grid-2" style="margin-top: 1.25rem;">
+          <div class="card" style="border-left: 4px solid #2563EB;">
+            <div class="card-title">📐 주관적 안녕감(SWB)의 3가지 구성 요소</div>
+            <div class="card-content" style="font-size: 0.92rem; line-height: 1.7;">
+              <p style="margin: 0 0 8px 0;">
+                <strong>1. 삶에 대한 인지적 평가 (만족도):</strong><br>
+                "내 삶은 내가 이상적으로 바라는 조건에 얼마나 가까운가?" (사후적, 이성적 평가)
+              </p>
+              <p style="margin: 0 0 8px 0;">
+                <strong>2. 긍정적 정서 (Positive Affect):</strong><br>
+                일상에서 느끼는 기쁨, 몰입, 활력, 감사의 빈도
+              </p>
+              <p style="margin: 0;">
+                <strong>3. 부정적 정서 (Negative Affect)의 결여:</strong><br>
+                만성적인 불안, 슬픔, 분노, 번아웃의 최소화
+              </p>
+            </div>
+          </div>
+
+          <div class="card" style="border-left: 4px solid #10B981;">
+            <div class="card-title">⚖️ 쾌락(Hedonic) vs 의미와 자아실현(Eudaimonic)</div>
+            <div class="card-content" style="font-size: 0.92rem; line-height: 1.7;">
+              <p style="margin: 0 0 10px 0;">
+                - <strong>헤도닉 (Hedonic):</strong> 맛있는 음식을 먹거나 쉴 때 느끼는 즉각적 쾌락 (순간의 만족).
+              </p>
+              <p style="margin: 0 0 10px 0;">
+                - <strong>유다이모닉 (Eudaimonic):</strong> 과정이 힘들더라도 역량을 발휘하여 가치 있는 삶을 일구는 것.
+              </p>
+              <p style="margin: 0; background: rgba(16, 185, 129, 0.1); padding: 8px; border-radius: 6px;">
+                💡 <strong>센(Amartya Sen)의 역량이론:</strong> 진정한 행복은 "내가 가치 있다고 믿는 삶을 스스로 선택할 수 있는 실질적 자유(Capability)"에서 나옵니다.
+                <span class="ref-badge" data-ref="REF-09">[REF-09]</span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-ref-footer">
+          <span>인용 레퍼런스:</span>
+          <span class="ref-badge" data-ref="REF-09">[REF-09] 대한민국 행복지도: 헤도닉과 유다이모닉의 통합 지수 (2020)</span>
+        </div>
+      </section>
+
+      <!-- ======================================================================
+           SLIDE 03: 데이터 실태 - 전 생애(전 연령대) 데이터의 경고
+           ====================================================================== -->
+      <section>
+        <span class="chapter-badge">DATA INSIGHT • 전 생애주기 분석</span>
+        <h2>직장인만의 문제가 아니다: 전 연령대 데이터의 경고</h2>
+        <p class="subtitle">
+          대한민국 228개 시군구와 통계 데이터가 보여주는 생애 전반의 구조적 불안
+        </p>
+
+        <div class="grid-2" style="margin-top: 1.25rem;">
+          <div class="card">
+            <div class="card-title" style="color: #38BDF8;">🎒 아동 & 청년기: 경쟁 압박과 고립</div>
+            <ul class="card-content" style="line-height: 1.8; margin: 0; padding-left: 1.2rem;">
+              <li><strong>사설학원 수 & 학업성취도:</strong> 유년기부터 이어지는 서열화 경쟁 <span class="ref-badge" data-ref="REF-09">[REF-09]</span></li>
+              <li><strong>청년 자살률:</strong> OECD 국가 중 <strong>2위</strong>로 급격한 상승세</li>
+              <li><strong>청년 1인 가구 급증:</strong> 관계적 안전망 결핍과 사회적 고립감 심화</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <div class="card-title" style="color: #F43F5E;">💼 직장인 & 노년기: 번아웃과 노후 불안</div>
+            <ul class="card-content" style="line-height: 1.8; margin: 0; padding-left: 1.2rem;">
+              <li><strong>직장 몰입도:</strong> 한국 직장인 14%만 몰입 (조용한 사직 59%) <span class="ref-badge" data-ref="REF-01">[REF-01]</span></li>
+              <li><strong>노인 빈곤율:</strong> 66~75세 <strong>42.7%</strong>, 76세 이상 <strong>60.2% (OECD 압도적 1위)</strong></li>
+              <li><strong>독거노인 비율:</strong> 생애 후반부의 치명적인 관계 단절 <span class="ref-badge" data-ref="REF-09">[REF-09]</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top: 1.2rem; padding: 1rem 1.4rem;">
+          <strong class="highlight-text">💡 데이터가 말하는 핵심:</strong>
+          <span> "직장에서 느끼는 불행은 개인이 나약해서가 아니라, <strong>'아동기 학업 경쟁 &rarr; 청년 고립 &rarr; 직장 번아웃 &rarr; 노인 빈곤'</strong>으로 이어지는 전 생애적 신뢰 자본과 안전망의 결핍 때문입니다."</span>
+        </div>
+
+        <div class="slide-ref-footer">
+          <span>데이터 출처:</span>
+          <span class="ref-badge" data-ref="REF-09">[REF-09] 한국형 행복지도 228개 시군구 하위도메인 지표</span>
+          <span class="ref-badge" data-ref="REF-01">[REF-01] 갤럽 글로벌 직장 보고서</span>
+        </div>
+      </section>
+
+      <!-- ======================================================================
+           SLIDE 04: 데이터 전처리 (Normalization & Scaling)
+           ====================================================================== -->
+      <section>
+        <span class="chapter-badge">METHODOLOGY • 데이터 전처리</span>
+        <h2>소득(원)과 미세먼지(μg/m³), 자살률을 어떻게 합칠까?</h2>
+        <p class="subtitle">전 생애 다차원 행복지수를 산출하기 위한 필수 데이터 정규화(Normalization) 과정</p>
+
+        <div class="grid-3" style="margin-top: 1.5rem;">
+          <div class="card">
+            <div class="card-title" style="font-size: 1.05rem;">1. 문제: 단위의 불일치</div>
+            <div class="card-content">
+              - 1인당 GRDP: <strong>35,000,000원</strong><br>
+              - 미세먼지: <strong>25.4 μg/m³</strong><br>
+              - 자살률: <strong>29.1명 / 10만명</strong><br><br>
+              단위와 자릿수가 완전히 달라 그대로는 절대 더하거나 비교할 수 없습니다.
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-title" style="font-size: 1.05rem;">2. 해결: Min-Max 정규화</div>
+            <div class="card-content">
+              모든 지표를 공정하게 <strong>0.0 ~ 1.0 점수</strong>로 환산:<br>
+              <code class="code-box" style="display:block; padding: 8px; margin: 8px 0; border-radius: 6px; font-size: 0.85rem;">
+                D = (값 - 최소값) / (최대값 - 최소값)
+              </code>
+              모든 변수가 동일한 체급에서 종합 점수에 기여하게 됩니다.
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-title" style="font-size: 1.05rem;">3. 필수: 역코딩 (Reverse)</div>
+            <div class="card-content">
+              <strong>"나쁜 데이터는 뒤집어라!"</strong><br><br>
+              미세먼지, 자살률, 빈곤율은 높을수록 불행해지는 부정 지표입니다.<br>
+              &rarr; <code class="code-box" style="padding: 2px 6px; border-radius: 4px;">1 - 정규화점수</code>로 역코딩하여 1에 가까울수록 안전하도록 변환!
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-ref-footer">
+          <span>인용 레퍼런스:</span>
+          <span class="ref-badge" data-ref="REF-09">[REF-09] 228개 시군구 8개 도메인 지표 표준화 및 역코딩 공식</span>
+        </div>
+      </section>
+
+      <!-- ======================================================================
+           SLIDE 05: 회귀분석 실증 (Regression Analysis)
+           ====================================================================== -->
+      <section>
+        <span class="chapter-badge">ANALYSIS 1 • 회귀분석 (Regression)</span>
+        <h2>"돈이 최고일까?" - 데이터가 증명한 행복의 1순위 요인</h2>
+        <p class="subtitle">
+          독립변수(원인)가 주관적 안녕감(결과)을 얼마나 잘 설명하는지 결정계수($R^2$)로 검증해봅시다.
+        </p>
+
+        <!-- 인터랙티브 컨트롤 버튼 -->
+        <div class="btn-toggle-group">
+          <button class="btn-toggle btn-reg-toggle active" data-key="social" onclick="toggleRegression('social')">
+            🤝 사회적 지지 (Social Support)
+          </button>
+          <button class="btn-toggle btn-reg-toggle" data-key="corruption" onclick="toggleRegression('corruption')">
+            ⚖️ 부패 인식 / 공정성 (Corruption)
+          </button>
+          <button class="btn-toggle btn-reg-toggle" data-key="gdp" onclick="toggleRegression('gdp')">
+            💰 1인당 GDP (소득 수준)
+          </button>
+          <span id="regressionR2Badge" style="margin-left: auto; font-weight: 700; color: #2563EB; font-size: 0.9rem; align-self: center;">
+            R² = 0.689 (설명력 68.9% - 압도적 1위)
+          </span>
+        </div>
+
+        <div class="grid-2" style="align-items: center; margin-top: 0.5rem;">
+          <div class="chart-container">
+            <canvas id="regressionChart"></canvas>
+          </div>
+
+          <div class="card" style="padding: 1.25rem;">
+            <div class="card-title" style="font-size: 1.15rem;">📌 비전공자를 위한 회귀분석 해석</div>
+            <div class="card-content" style="font-size: 0.92rem; line-height: 1.7;">
+              <p style="margin: 0 0 8px 0;">
+                - <strong>회귀선 공식:</strong> <code id="regressionFormula" class="code-box" style="padding: 2px 6px; border-radius: 4px;">y = 2.834x + 2.15</code>
+              </p>
+              <p style="margin: 0 0 8px 0;">
+                - <strong>결정계수($R^2$):</strong> 원인이 결과를 설명하는 적중률 성적표 (최대 1.0).
+              </p>
+              <p style="margin: 0;">
+                - <strong>발견:</strong> <span class="highlight-text">사회적 지지($R^2=0.689$)</span>의 설명력이 <span style="color:#10B981; font-weight:700;">GDP($R^2=0.541$)</span>보다 훨씬 높습니다! 돈보다 <strong>"내가 힘들 때 기댈 수 있는 사람"</strong>이 행복을 결정합니다.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-ref-footer">
+          <span>데이터 출처:</span>
+          <span class="ref-badge" data-ref="REF-10">[REF-10] WHR 2026 단순선형회귀분석 결과 (경국대, 2026)</span>
+        </div>
+      </section>
+
+      <!-- ======================================================================
+           SLIDE 06: 군집분석 실증 (K-Means Clustering)
+           ====================================================================== -->
+      <section>
+        <span class="chapter-badge">ANALYSIS 2 • 머신러닝 군집분석 (Clustering)</span>
+        <h2>K-Means 알고리즘으로 본 한국의 역설: "고소득·저자유 군집"</h2>
+        <p class="subtitle">
+          147개국 다차원 데이터를 머신러닝으로 묶었을 때 발견되는 한국의 구조적 위치
+        </p>
+
+        <div class="grid-2" style="margin-top: 1.5rem;">
+          <div class="card" style="border-top: 4px solid #10B981;">
+            <div class="card-title" style="color: #10B981;">🌿 Cluster A (선진 웰빙 군집)</div>
+            <div class="card-content">
+              <strong>대표 국가:</strong> 핀란드, 덴마크, 스위스<br>
+              <strong>특징:</strong> 고소득 + 높은 사회적 신뢰 + <strong>압도적인 삶의 선택의 자유</strong>.<br>
+              &rarr; 행복점수 평균 <strong>7.21점</strong> (세계 최상위권)
+            </div>
+          </div>
+
+          <div class="card" style="border-top: 4px solid #F59E0B;">
+            <div class="card-title" style="color: #F59E0B;">⚡ Cluster B (고소득·저자유 군집 - 한국 소속!)</div>
+            <div class="card-content">
+              <strong>대표 국가:</strong> 대한민국, 일본, 이탈리아<br>
+              <strong>특징:</strong> Cluster A 수준의 높은 GDP와 건강수명을 가졌으나, <strong>사회적 지지(-21%)와 삶의 선택 자유(-30%)가 급감</strong>.<br>
+              &rarr; 경제적 성취 대비 행복이 침체된 구조적 병목 현상.
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top: 1.25rem; padding: 1.1rem;">
+          <strong class="highlight-text">🔍 데이터가 알려준 차별적 통찰:</strong>
+          <span> "한국은 물질적 풍요(GDP, 건강수명)는 달성했으나, <strong>'삶의 경로를 스스로 선택할 수 있는 자율성'</strong>과 <strong>'신뢰할 수 있는 인간관계'</strong>라는 비물질적 자본이 심각하게 결핍되어 있습니다."</span>
+        </div>
+
+        <div class="slide-ref-footer">
+          <span>인용 레퍼런스:</span>
+          <span class="ref-badge" data-ref="REF-10">[REF-10] K-평균 군집분석 (K=4, n=147, scikit-learn 실증)</span>
+        </div>
+      </section>
+
+      <!-- ======================================================================
+           SLIDE 07: 갭 분석 & 시각화 (Gap Decomposition)
+           ====================================================================== -->
+      <section>
+        <span class="chapter-badge">VISUALIZATION • 갭(Gap) 분해 분석</span>
+        <h2>한국(67위) vs 핀란드(1위): 1.724점 격차의 진실</h2>
+        <p class="subtitle">통념을 뒤엎는 데이터 시각화: 두 나라의 행복 격차를 만든 요인별 기여율</p>
+
+        <div class="grid-2" style="align-items: center; margin-top: 1rem;">
+          <div class="chart-container" style="height: 330px;">
+            <canvas id="gapChart"></canvas>
+          </div>
+
+          <div class="card" style="padding: 1.3rem;">
+            <div class="card-title" style="color: #F43F5E;">📊 통계를 뒤집는 팩트 체크</div>
+            <div class="card-content" style="line-height: 1.8;">
+              <ul style="margin: 0; padding-left: 1.2rem;">
+                <li><strong>1인당 GDP 차이: 불과 2.6% (0.045점)!</strong><br>경제력 차이는 한국과 핀란드의 행복 격차에 거의 영향을 주지 못함.</li>
+                <li><strong>사회적 지지 격차: 24.2%</strong> (1위 격차 요인)</li>
+                <li><strong>부패 인식(투명성) 격차: 20.7%</strong> (2위 격차 요인)</li>
+                <li><strong>삶의 선택의 자유 격차: 17.5%</strong> (3위 격차 요인)</li>
+              </ul>
+              <div style="margin-top: 12px; font-weight: 700; color: #2563EB;">
+                &rarr; 데이터 시각화는 "돈만 벌면 행복해진다"는 착각을 깨부수는 가장 확실한 증거입니다.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-ref-footer">
+          <span>분석 출처:</span>
+          <span class="ref-badge" data-ref="REF-10">[REF-10] 한국-핀란드 행복 격차 분해 분석 (WHR 2026)</span>
+        </div>
+      </section>
+
+      <!-- ======================================================================
+           SLIDE 08: 방향성과 결론 (Evidence-Based Direction)
+           ====================================================================== -->
+      <section>
+        <span class="chapter-badge">CONCLUSION • 데이터가 가리키는 방향</span>
+        <h2>데이터가 말하는 진짜 행복의 3대 조건</h2>
+        <p class="subtitle">더 나은 삶과 행복을 위해 개인과 사회가 나아가야 할 실천 방향성</p>
+
+        <div class="grid-3" style="margin-top: 1.5rem;">
+          <div class="card" style="border-top: 4px solid #2563EB;">
+            <div class="card-title" style="color: #2563EB;">1. 관계 자본의 복원<br>(Social Capital)</div>
+            <div class="card-content">
+              <strong>"외로움은 하루 담배 15개비만큼 해롭다"</strong><br><br>
+              내가 곤경에 처했을 때 손 내밀 수 있는 단 한 사람과의 신뢰 연결망(Social Support)을 구축하기.
+              <span class="ref-badge" data-ref="REF-05">[REF-05]</span>
+            </div>
+          </div>
+
+          <div class="card" style="border-top: 4px solid #10B981;">
+            <div class="card-title" style="color: #10B981;">2. 삶의 선택의 자유<br>(Freedom of Choice)</div>
+            <div class="card-content">
+              <strong>"남의 정답이 아닌 나의 선택"</strong><br><br>
+              획일화된 성공 공식을 벗어나 직무 방식(Job Crafting), 전공, 진로를 주도적으로 선택할 수 있는 자율성 확보.
+              <span class="ref-badge" data-ref="REF-07">[REF-07]</span>
+            </div>
+          </div>
+
+          <div class="card" style="border-top: 4px solid #F59E0B;">
+            <div class="card-title" style="color: #F59E0B;">3. 전 생애적 심리 안전망<br>(Lifecourse Safety)</div>
+            <div class="card-content">
+              <strong>"실패해도 나락으로 떨어지지 않는다"</strong><br><br>
+              청년의 실패를 배움으로 안아주고, 노인의 존엄한 삶을 지키는 사회적 공정성과 심리적 안전감.
+              <span class="ref-badge" data-ref="REF-06">[REF-06]</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top: 1.5rem; text-align: center; padding: 1.1rem; background: rgba(37, 99, 235, 0.06);">
+          <strong style="font-size: 1.05rem; color: #2563EB;">🎯 데이터 분석의 최종 목적:</strong>
+          <span> "숫자를 통해 나 자신과 사회의 결핍을 객관적으로 진단하고, 더 의미 있고 자유로운 삶을 선택하는 것."</span>
+        </div>
+      </section>
+
+      <!-- ======================================================================
+           SLIDE 09: 참고문헌 & 데이터 마스터 인덱스 (Master References)
+           ====================================================================== -->
+      <section>
+        <span class="chapter-badge">References & Data Source</span>
+        <h2>오늘 수업에 사용된 학술 데이터 출처</h2>
+        <p class="subtitle">모든 데이터와 차트는 검증된 공식 연구 및 오픈 데이터셋에 근거합니다. (클릭 시 세부 정보 확인)</p>
+
+        <div class="grid-3" style="margin-top: 1.5rem;">
+          <div class="card">
+            <span class="ref-badge" data-ref="REF-08">REF-08</span>
+            <div class="card-title" style="font-size: 1.05rem; margin-top: 8px;">세계 행복 보고서 (WHR)</div>
+            <div class="card-content" style="font-size: 0.85rem;">
+              UN SDSN & 갤럽 공식 2026 원문 데이터셋 (147개국 6대 지표 수록).
+            </div>
+          </div>
+
+          <div class="card">
+            <span class="ref-badge" data-ref="REF-09">REF-09</span>
+            <div class="card-title" style="font-size: 1.05rem; margin-top: 8px;">대한민국 행복지도 (2020)</div>
+            <div class="card-content" style="font-size: 0.85rem;">
+              이희철·구교준 외 (정책분석평가학회보). 228개 시군구 데이터 표준화 및 군집분석.
+            </div>
+          </div>
+
+          <div class="card">
+            <span class="ref-badge" data-ref="REF-10">REF-10</span>
+            <div class="card-title" style="font-size: 1.05rem; margin-top: 8px;">한국 행복지표 구조적 분석 (2026)</div>
+            <div class="card-content" style="font-size: 0.85rem;">
+              김병문 외 (JHCLS). WHR 실측 기반 회귀분석(R²=0.689) 및 K-평균 군집분석.
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top: 1.5rem; text-align: center; padding: 1.2rem;">
+          <a href="../references/REFERENCES.md" target="_blank" style="text-decoration: none; font-weight: 700; color: #2563EB;">
+            📂 references/REFERENCES.md 마스터 문서 열람하기 (클릭) &rarr;
+          </a>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- 레퍼런스 인터랙티브 모달 팝업 -->
+  <div id="refModalOverlay" class="ref-modal-overlay">
+    <div class="ref-modal-content">
+      <button id="refModalClose" class="ref-modal-close">&times;</button>
+      <div id="refModalBody"></div>
+    </div>
+  </div>
+
+  <!-- 하단 단축키 힌트 -->
+  <div class="controls-hint">
+    <kbd>Space</kbd> / <kbd>&rarr;</kbd> 다음 &nbsp;|&nbsp; <kbd>ESC</kbd> 전체보기 &nbsp;|&nbsp; <kbd>F</kbd> 전체화면 &nbsp;|&nbsp; <kbd>S</kbd> 발표자노트
+  </div>
+
+  <!-- Reveal.js & Main Script -->
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

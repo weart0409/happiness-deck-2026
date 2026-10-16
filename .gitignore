@@ -1,0 +1,13 @@
+# Windows & Editor files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.vscode/
+.idea/
+
+# Inbox folder (files already processed into references/raw)
+_inbox/
+
+# OS generated files
+.DS_Store

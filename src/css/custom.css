@@ -1,0 +1,510 @@
+/* ==========================================================================
+   데이터로 풀어보는 행복의 비밀 - 슬라이드덱 스타일시트
+   3대 멀티 테마: PPT 양식, 스타벅스 (DESIGN.md), 디스코드
+   ========================================================================== */
+
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&display=swap");
+
+/* --------------------------------------------------------------------------
+   1. 공통 기본 레이아웃
+   -------------------------------------------------------------------------- */
+:root {
+  --font-sans: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+  --font-mono: "Fira Code", monospace;
+  --transition-theme: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body, .reveal {
+  font-family: var(--font-sans) !important;
+  transition: var(--transition-theme);
+  overflow: hidden;
+}
+
+.reveal .slides {
+  text-align: left;
+}
+
+.reveal h1, .reveal h2, .reveal h3, .reveal h4 {
+  font-family: var(--font-sans) !important;
+  font-weight: 700;
+  text-transform: none;
+  letter-spacing: -0.02em;
+  margin: 0;
+  padding: 0;
+}
+
+/* --------------------------------------------------------------------------
+   2. 상단 네비게이션 & 테마 스위처 바
+   -------------------------------------------------------------------------- */
+.top-theme-bar {
+  position: fixed;
+  top: 14px;
+  right: 20px;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+  padding: 6px 10px;
+  border-radius: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+.theme-bar-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #CBD5E1;
+  padding: 0 6px;
+  letter-spacing: 0.02em;
+}
+
+.theme-btn {
+  border: none;
+  background: transparent;
+  padding: 6px 12px;
+  border-radius: 30px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: #94A3B8;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.theme-btn:hover {
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.theme-btn.active {
+  background: #FFFFFF;
+  color: #0F172A;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* --------------------------------------------------------------------------
+   3. 테마별 컬러 & 비주얼 시스템 (THEMES)
+   -------------------------------------------------------------------------- */
+
+/* -------------------- [THEME 1: 모던 PPT 양식] -------------------- */
+body.theme-ppt, .reveal.theme-ppt {
+  background-color: #F8FAFC !important;
+  color: #1E293B;
+}
+
+.theme-ppt .reveal h1, .theme-ppt .reveal h2, .theme-ppt .reveal h3 {
+  color: #0F172A;
+}
+
+.theme-ppt .reveal h2::after {
+  content: "";
+  display: block;
+  width: 44px;
+  height: 4px;
+  background: #2563EB;
+  border-radius: 2px;
+  margin-top: 8px;
+}
+
+.theme-ppt .card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
+  color: #334155;
+}
+
+.theme-ppt .card-title {
+  color: #1E293B;
+}
+
+.theme-ppt .chapter-badge {
+  background: #EFF6FF;
+  color: #2563EB;
+  border: 1px solid #BFDBFE;
+}
+
+.theme-ppt .highlight-text {
+  color: #2563EB;
+  font-weight: 700;
+}
+
+.theme-ppt .code-box {
+  background: #F1F5F9;
+  border: 1px solid #CBD5E1;
+  color: #0F172A;
+}
+
+.theme-ppt .ref-badge {
+  background: #EFF6FF;
+  color: #2563EB;
+  border: 1px solid #93C5FD;
+}
+
+.theme-ppt .ref-badge:hover {
+  background: #2563EB;
+  color: #FFFFFF;
+}
+
+/* -------------------- [THEME 2: 스타벅스 웜 (DESIGN.md)] -------------------- */
+body.theme-starbucks, .reveal.theme-starbucks {
+  background-color: #f2f0eb !important; /* Neutral Warm primary canvas */
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.theme-starbucks .reveal h1 {
+  color: #006241; /* Starbucks Green */
+  font-weight: 700;
+  letter-spacing: -0.16px;
+}
+
+.theme-starbucks .reveal h2 {
+  color: #1E3932; /* House Green */
+  letter-spacing: -0.16px;
+}
+
+.theme-starbucks .reveal h2::after {
+  content: "";
+  display: block;
+  width: 50px;
+  height: 4px;
+  background: #00754A; /* Green Accent */
+  border-radius: 50px;
+  margin-top: 8px;
+}
+
+.theme-starbucks .card {
+  background: #FFFFFF;
+  border: 1px solid #edebe9;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  color: rgba(0, 0, 0, 0.75);
+}
+
+.theme-starbucks .card-title {
+  color: #006241;
+  font-weight: 700;
+}
+
+.theme-starbucks .chapter-badge {
+  background: #d4e9e2; /* Green Light wash */
+  color: #006241;
+  border: 1px solid rgba(0, 98, 65, 0.2);
+  border-radius: 50px;
+}
+
+.theme-starbucks .highlight-text {
+  color: #00754A;
+  font-weight: 700;
+}
+
+.theme-starbucks .stat-badge-gold {
+  background: #faf6ee;
+  border: 1px solid #dfc49d;
+  color: #cba258; /* Rewards Gold */
+}
+
+.theme-starbucks .pill-btn {
+  background: #00754A;
+  color: #FFFFFF;
+  border-radius: 50px;
+  padding: 8px 18px;
+  border: 1px solid #00754A;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.theme-starbucks .pill-btn:active {
+  transform: scale(0.95);
+}
+
+.theme-starbucks .ref-badge {
+  background: #d4e9e2;
+  color: #006241;
+  border: 1px solid rgba(0, 98, 65, 0.3);
+  border-radius: 50px;
+}
+
+.theme-starbucks .ref-badge:hover {
+  background: #006241;
+  color: #FFFFFF;
+}
+
+/* -------------------- [THEME 3: 디스코드 다크 (Discord)] -------------------- */
+body.theme-discord, .reveal.theme-discord {
+  background-color: #313338 !important; /* Discord main chat bg */
+  color: #DBDEE1;
+}
+
+.theme-discord .reveal h1 {
+  color: #FFFFFF;
+}
+
+.theme-discord .reveal h2 {
+  color: #F2F3F5;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.theme-discord .reveal h2::before {
+  content: "#";
+  color: #5865F2; /* Discord Blurple */
+  font-weight: 800;
+}
+
+.theme-discord .reveal h2::after {
+  display: none;
+}
+
+.theme-discord .card {
+  background: #2B2D31; /* Discord container */
+  border: 1px solid #1E1F22;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  color: #B5BAC1;
+}
+
+.theme-discord .card-title {
+  color: #F2F3F5;
+}
+
+.theme-discord .chapter-badge {
+  background: rgba(88, 101, 242, 0.15);
+  color: #5865F2;
+  border: 1px solid rgba(88, 101, 242, 0.4);
+  border-radius: 4px;
+  font-family: var(--font-mono);
+}
+
+.theme-discord .highlight-text {
+  color: #5865F2;
+  font-weight: 700;
+}
+
+.theme-discord .code-box {
+  background: #1E1F22;
+  border: 1px solid #111214;
+  color: #F2F3F5;
+  font-family: var(--font-mono);
+}
+
+.theme-discord .ref-badge {
+  background: rgba(88, 101, 242, 0.2);
+  color: #858EFA;
+  border: 1px solid #5865F2;
+  border-radius: 4px;
+}
+
+.theme-discord .ref-badge:hover {
+  background: #5865F2;
+  color: #FFFFFF;
+}
+
+/* --------------------------------------------------------------------------
+   4. 슬라이드 공통 컴포넌트 & 그리드
+   -------------------------------------------------------------------------- */
+.chapter-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 4px 14px;
+  margin-bottom: 1rem;
+  letter-spacing: 0.03em;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  opacity: 0.8;
+  margin-top: 0.5rem;
+  margin-bottom: 1.8rem;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+.card {
+  padding: 1.5rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+}
+
+.card-title {
+  font-size: 1.2rem;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card-content {
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* 통계 하이라이트 */
+.stat-num {
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 0.4rem;
+}
+
+/* 레퍼런스 뱃지 */
+.ref-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  cursor: pointer;
+  vertical-align: middle;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+/* 차트 컨테이너 */
+.chart-container {
+  position: relative;
+  width: 100%;
+  height: 320px;
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: 12px;
+  padding: 10px;
+}
+
+/* 인터랙티브 컨트롤 버튼 */
+.btn-toggle-group {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.btn-toggle {
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid #CBD5E1;
+  background: transparent;
+  transition: all 0.2s ease;
+}
+
+.btn-toggle.active {
+  background: #2563EB;
+  color: #FFFFFF;
+  border-color: #2563EB;
+}
+
+.theme-starbucks .btn-toggle.active {
+  background: #00754A;
+  border-color: #00754A;
+  color: #FFFFFF;
+  border-radius: 50px;
+}
+
+.theme-discord .btn-toggle.active {
+  background: #5865F2;
+  border-color: #5865F2;
+  color: #FFFFFF;
+}
+
+/* 레퍼런스 모달 */
+.ref-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  z-index: 99999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.ref-modal-overlay.active {
+  display: flex;
+}
+
+.ref-modal-content {
+  background: #FFFFFF;
+  color: #0F172A;
+  border-radius: 16px;
+  max-width: 620px;
+  width: 90%;
+  padding: 2rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+  position: relative;
+}
+
+.theme-discord .ref-modal-content {
+  background: #2B2D31;
+  color: #F2F3F5;
+  border: 1px solid #1E1F22;
+}
+
+.ref-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1.25rem;
+  font-size: 1.6rem;
+  color: #64748B;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+}
+
+/* 하단 슬라이드 출처 푸터 */
+.slide-ref-footer {
+  position: absolute;
+  bottom: 12px;
+  left: 20px;
+  font-size: 0.78rem;
+  opacity: 0.85;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* 하단 키보드 단축키 힌트 */
+.controls-hint {
+  position: fixed;
+  bottom: 14px;
+  right: 20px;
+  font-size: 0.72rem;
+  opacity: 0.5;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+.controls-hint kbd {
+  background: rgba(0, 0, 0, 0.1);
+  padding: 2px 5px;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
